@@ -3,15 +3,27 @@ import React from 'react'
 class AddAssistant extends React.Component {
   state = {
     name: '',
+    lastName: '',
     rut: '',
     email: '',
-    fono: ''
+    fono: '',
+    address: {
+      street: '',
+      city: '',
+      commune: ''
+    },
+    paymentDetails: {
+      accountNumber: '',
+      bankName: '',
+      accountType: ''
+    }
   }
 
   add = (e) => {
     e.preventDefault()
     if (
       this.state.name === '' ||
+      this.state.lastName === '' ||
       this.state.rut === '' ||
       this.state.email === '' ||
       this.state.fono === ''
@@ -21,7 +33,7 @@ class AddAssistant extends React.Component {
     }
 
     this.props.addAssistantHandler(this.state)
-    this.setState({ name: '', rut: '', email: '', fono: '' })
+    this.setState({ name: '', lastName: '', rut: '', email: '', fono: '' })
   }
 
   render() {
@@ -42,16 +54,28 @@ class AddAssistant extends React.Component {
               />
             </div>
             <div className='flex flex-col gap-2'>
-              <label>Rut</label>
+              <label>lastName</label>
               <input
                 className='border-2 border-gray-300 h-10 rounded-md p-2 outline-none'
                 type='text'
                 name='rut'
-                placeholder='Rut'
-                value={this.state.rut}
-                onChange={(e) => this.setState({ rut: e.target.value })}
+                placeholder='lastName'
+                value={this.state.lastName}
+                onChange={(e) => this.setState({ lastName: e.target.value })}
               />
             </div>
+          </div>
+
+          <div className='flex flex-col gap-2'>
+            <label>Rut</label>
+            <input
+              className='border-2 border-gray-300 h-10 rounded-md p-2 outline-none'
+              type='text'
+              name='rut'
+              placeholder='Rut'
+              value={this.state.rut}
+              onChange={(e) => this.setState({ rut: e.target.value })}
+            />
           </div>
 
           <div className='flex flex-col gap-2'>

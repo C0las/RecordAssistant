@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom'
 import { TrashIcon, PencilIcon } from '@heroicons/react/solid'
 
 const CardAssistant = (props) => {
   const { id, name, rut } = props.assistant
   const img = props.img
+  const titleName = props.name
 
   return (
     <div className='flex flex-col items-center justify-center rounded-md gap-3 p-3 shadow-md border border-gray-100 '>
@@ -21,13 +23,19 @@ const CardAssistant = (props) => {
         <span className='text-2xl font-bold text-white'>{img}</span>
       </div>
       <div className='flex flex-col items-center gap-1'>
-        <h1 className='font-semibold'>{name}</h1>
+        <h1 className='font-semibold'>{titleName}</h1>
         <p className='text-xs font-light'>{rut}</p>
       </div>
-
-      <button className='text-xs text-white font-medium border-2 bg-primary-light rounded-2xl p-2'>
-        VER DETALLES
-      </button>
+      <Link
+        to={{
+          pathname: `/assistantDetail/${id}`,
+          state: { assistant: props.assistant, img: img, name: titleName }
+        }}
+      >
+        <button className='text-xs text-white font-medium border-2 bg-primary-light rounded-2xl p-2'>
+          VER DETALLES
+        </button>
+      </Link>
     </div>
   )
 }
