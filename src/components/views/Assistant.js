@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { ViewGridIcon, ViewListIcon } from '@heroicons/react/solid'
 
 import AssistantList from '../assistant/AssistantList'
 
-function Assistant(props) {
-  const { assistant, removeAssistantHandler } = props
-  var n = Object.keys(assistant).length
+function Assistant() {
+  const assistants = useSelector((state) => state.allAssistants.assistants)
+  var n = assistants.length
 
   return (
     <div className='flex flex-col bg-white p-10 gap-5 h-screen w-full'>
@@ -28,10 +28,7 @@ function Assistant(props) {
         </div>
       </div>
       <div className='grid md:grid-cols-2 lg:grid-cols-4 items-center gap-10'>
-        <AssistantList
-          assistant={assistant}
-          getAssistantId={removeAssistantHandler}
-        />
+        <AssistantList />
       </div>
     </div>
   )

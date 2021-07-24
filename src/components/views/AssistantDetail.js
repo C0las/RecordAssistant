@@ -1,13 +1,30 @@
-import { NavLink } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { TrashIcon, PencilIcon } from '@heroicons/react/solid'
+import {
+  fetchSelectedAssistant,
+  removeSelectedAssistant
+} from '../../redux/actions/assistantActions'
 
 const AssistantDetail = (props) => {
-  const { name, lastName, rut, email, fono } = props.location.state.assistant
-  const { street, city, commune } = props.location.state.assistant.address
-  const { accountNumber, bankName, accountType } =
-    props.location.state.assistant.paymentDetails
-  const img = props.location.state.img
-  const titleName = props.location.state.name
+  const assistant = useSelector((state) => state.assistant)
+  const address = useSelector((state) => state.assistant.address)
+  const paymentDetails = useSelector((state) => state.assistant.paymentDetails)
+  const { id } = useParams()
+  const dispatch = useDispatch()
+
+  const { name, lastName, rut, email, fono } = assistant
+  const { street, city, commune } = address || {}
+  const { accountNumber, bankName, accountType } = paymentDetails || {}
+  const { img, titleName } = props.location.state
+
+  useEffect(() => {
+    if (id && id !== '') dispatch(fetchSelectedAssistant(id))
+    return () => {
+      dispatch(removeSelectedAssistant())
+    }
+  }, [dispatch, id])
 
   return (
     <div className='flex flex-col items-center p-10 w-full  gap-5'>

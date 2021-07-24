@@ -1,11 +1,21 @@
+import { useSelector, useDispatch } from 'react-redux'
 import CardAssistant from './CardAssistant'
+import { setAssistants } from '../../redux/actions/assistantActions'
+import api from '../../api/assistants'
 
-const AssistantList = (props) => {
-  const deleteAssistantHandler = (id) => {
-    props.getAssistantId(id)
+const AssistantList = () => {
+  const assistants = useSelector((state) => state.allAssistants.assistants)
+  const dispatch = useDispatch()
+
+  const removeAssistantHandler = async (id) => {
+    await api.delete(`/assistants/${id}`)
+    const newAssistantList = assistants.filter((assistant) => {
+      return assistant.id !== id
+    })
+    dispatch(setAssistants(newAssistantList))
   }
 
-  const renderAssistant = props.assistant.map((assistant) => {
+  const renderAssistant = assistants.map((assistant) => {
     const img = (assistant) => {
       const name = assistant.name.replace(/[a-z]/g, '').substr(-3, 2)
       const lastName = assistant.lastName.replace(/[a-z]/g, '').substr(-3, 2)
@@ -31,12 +41,20 @@ const AssistantList = (props) => {
         assistant={assistant}
         name={name(assistant)}
         img={img(assistant)}
-        key={assistant.id}
-        clickHander={deleteAssistantHandler}
+        clickHanlder={removeAssistantHandler}
       />
     )
   })
-  return renderAssistant
+
+  return (
+    <>
+      {assistants.length === 0 ? (
+        <div>No se encontraron asistentes</div>
+      ) : (
+        renderAssistant
+      )}
+    </>
+  )
 }
 
 export default AssistantList
