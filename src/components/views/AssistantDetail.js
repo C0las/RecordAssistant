@@ -14,6 +14,8 @@ const AssistantDetail = (props) => {
   const { id } = useParams()
   const dispatch = useDispatch()
 
+  console.log(id)
+
   const { name, lastName, rut, email, fono } = assistant
   const { street, city, commune } = address || {}
   const { accountNumber, bankName, accountType } = paymentDetails || {}

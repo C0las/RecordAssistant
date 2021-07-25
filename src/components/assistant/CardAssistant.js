@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { TrashIcon, PencilIcon } from '@heroicons/react/solid'
 
 const CardAssistant = (props) => {
-  const { id, rut } = props.assistant
+  const { _id, rut } = props.assistant
   const img = props.img
   const titleName = props.name
 
@@ -13,7 +13,7 @@ const CardAssistant = (props) => {
           <PencilIcon className='h-4 w-4 hover:text-green-600' />
         </button>
         <button
-          onClick={() => props.clickHanlder(id)}
+          onClick={() => props.clickHanlder(_id)}
           className='flex items-center justify-center rounded-full border border-dashed border-gray-400 bg-transparent w-6 h-6'
         >
           <TrashIcon className='h-4 w-4 hover:text-red-600' />
@@ -28,7 +28,7 @@ const CardAssistant = (props) => {
       </div>
       <Link
         to={{
-          pathname: `/assistantDetail/${id}`,
+          pathname: `/assistantDetail/${_id}`,
           state: { img: img, titleName: titleName }
         }}
       >

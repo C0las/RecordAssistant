@@ -1,11 +1,18 @@
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchAssitants } from '../../redux/actions/assistantActions'
 import { ViewGridIcon, ViewListIcon } from '@heroicons/react/solid'
 
 import AssistantList from '../assistant/AssistantList'
 
 function Assistant() {
   const assistants = useSelector((state) => state.allAssistants.assistants)
+  const dispatch = useDispatch()
   var n = assistants.length
+
+  useEffect(() => {
+    dispatch(fetchAssitants)
+  }, [dispatch])
 
   return (
     <div className='flex flex-col bg-white p-10 gap-5 h-screen w-full'>

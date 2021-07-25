@@ -8,10 +8,11 @@ const AssistantList = () => {
   const dispatch = useDispatch()
 
   const removeAssistantHandler = async (id) => {
-    await api.delete(`/assistants/${id}`)
+    let data = await api.delete(`/${id}`)
     const newAssistantList = assistants.filter((assistant) => {
       return assistant.id !== id
     })
+    console.log(newAssistantList)
     dispatch(setAssistants(newAssistantList))
   }
 
